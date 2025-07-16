@@ -16,15 +16,15 @@ function Navbar() {
                 <form  action="/search" method="GET">
                     <FaSearch className="absolute left-8 top-6 cursor-pointer transition duration-250 ease
                      hover:scale-150"/>
-                    <input  className="btns w-md pl-6 bg-gray-400 mx-3 py-1 px-2 rounded-full outline-none" 
+                    <input  className="btns w-md pl-6 bg-gray-400 mx-3 py-1 px-2 border-2 outline-none" 
                     type="text"  name="query" placeholder="Search..." />
                 </form>
             </div>
 
-            <Button title="Home"/>
-            <Button title="Trends"/>
-            <Button title="Saved"/>
-            
+            <Button nav="/" title="Home"/>
+            <Button nav="/trends" title="Trends"/>
+            <Button nav="/saved" title="Saved"/>
+
         </section>
 
         </>
