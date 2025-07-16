@@ -9,8 +9,8 @@ import Trends from "./pages/Trends"
     <>
     <Route path="/" element={<MainLayout />} />,
     <Route index element={<Home />} />,
-    <Route path="/trends" element={<Saved />} />,
-    <Route path="/saved" element={<Trends />} />
+    <Route path="/trends" element={<Trends />} />,
+    <Route path="/saved" element={<Saved />} />
     </>
   )
 );
