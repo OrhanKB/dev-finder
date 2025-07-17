@@ -7,10 +7,11 @@ import Trends from "./pages/Trends"
   const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-    <Route path="/" element={<MainLayout />} />,
+    <Route path="/" element={<MainLayout />} >,
     <Route index element={<Home />} />,
     <Route path="/trends" element={<Trends />} />,
     <Route path="/saved" element={<Saved />} />
+    </Route>
     </>
   )
 );
