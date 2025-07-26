@@ -2,12 +2,12 @@
 import Listing from "./Listing";
 import { Symbols } from "../assets/symbols";
 
-function LanguageListings() {
+function LanguageListings({items}) {
+    console.log("trendinglangs:", items);
     return(
         <>
-        <Listing title="Trend Languages" items={["Javascript - 25M Repo","Python - 18M Repo","Rust - 1.2M Repo"]}
-            symbol={Symbols.trend}
-         />
+        <Listing title="Trend Languages" items={items} symbol={Symbols.trend} />
+
         </>
     );
 } 

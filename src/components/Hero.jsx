@@ -1,22 +1,29 @@
-import { Github } from "lucide-react";
 import Button from "./Button";
 import GithubPic from "../assets/github.png"
 
-function Hero() {
+
+function Hero({data}) {
+
+    const {dailyRepo, totalRepo, popularRepos} = data 
+    const popularReposName = popularRepos[0].name;
+    const popularReposStar = popularRepos[0].stargazerCount;
+    
+
     return(
         <>
     <section className="bg-gray-800 text-gray-300 h-100 font-mono flex w-full"> 
         <div className="flex flex-col px-10 pt-10 gap-20">
             <h1 className="text-4xl ">
-                🚀 1000  Repo Created Today !
+                🚀 {dailyRepo}  Repo Created Today !
+                
             </h1>
 
             <h1 className="text-4xl ">
-                🌍 100m+ Open  Source Repo Is On Github !
+                🌍 {totalRepo} Open  Source Repo Is On Github !
             </h1>
 
             <h1 className="text-4xl ">
-                🌟 Most starred: freeCodeCamp (372K STAR)
+                🌟 Most starred: {popularReposName} - {popularReposStar} (STAR)
             </h1>
         </div>
     
@@ -29,5 +36,4 @@ function Hero() {
         </>
     );
 }
-
 export default Hero

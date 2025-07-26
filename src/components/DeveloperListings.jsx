@@ -1,11 +1,11 @@
 import Listing from "./Listing";
 import { Symbols } from "../assets/symbols";
 
-function DeveloperListings() {
+function DeveloperListings({items}) {
 
     return(
         <>
-            <Listing title="Top Developers" items={["@torvalds - Linux"," @deneme - deneme123", "@anan - anan321"]}
+            <Listing title="Top Followed Devs" items={items}
                 symbol={Symbols.crown}
              />
         </>
