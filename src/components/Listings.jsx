@@ -6,11 +6,10 @@ import { useEffect, useState } from "react";
 function Listings({data}) {
 
     const {popularRepos, topFollowed, trendingLangs} = data
-    console.log("trendinglangs in listings:", trendingLangs);
   
     return(
         <>
-        <section className="flex bg-gray-300 h-80 font-mono justify-center">
+        <section className="flex  font-mono justify-center">
             <LanguageListings items={trendingLangs} />
             <RepoListings items={popularRepos} />
             <DeveloperListings items={topFollowed}/>
