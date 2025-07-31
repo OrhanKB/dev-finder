@@ -1,17 +1,17 @@
 import Listing from "./Listing";
-import { Symbols } from "../assets/symbols";
+import { useListingData } from "../hooks/useListingData";
 
 function DeveloperListings({items}) {
+    const {config, getDisplayValue, processedItems} = useListingData(items, "developer")
 
-    console.log("items:", items)
-    const filteredDevelopers = items.filter((item) => item.__typename !== "Organization");
-    console.log("filtered developers:", filteredDevelopers);
-    const firstFive = filteredDevelopers.slice(0, 5);
-    console.log("firstfive:", firstFive);
     return(
         <>
-            <Listing title="Top Followed Devs" items={firstFive}
-                symbol={Symbols.crown}
+            <Listing 
+            title={config.title}
+            items={processedItems}
+            symbol={config.symbol} 
+            spanSymbol={config.spanSymbol} 
+            getDisplayValue={getDisplayValue}
              />
         </>
     );

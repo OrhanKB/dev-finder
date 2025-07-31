@@ -1,4 +1,3 @@
-import Button from "./Button";
 import GithubPic from "../assets/github.png"
 import abbreviate from "number-abbreviate"
 

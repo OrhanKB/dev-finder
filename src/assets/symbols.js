@@ -3,5 +3,7 @@ export const Symbols  = {
   fire: "🔥",
   rocket: "🚀",
   star: "⭐",
-  crown: "👑"
+  crown: "👑",
+  followers: "👥",
+  follower: "👤"
 };

@@ -1,18 +1,19 @@
-function RepositoryCard() {
+function RepositoryCard({items}) {
+
+  console.log("items in respositorycard:", items);
+
     return(
         <>
 <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center">
-  {/* Repo Icon/Language Badge */}
-  <div className="w-24 h-24 mb-4 border-2 border-gray-500 bg-gray-100 flex items-center justify-center text-4xl">
-    📁
-  </div>
   
-  {/* Repo Name */}
-  <h2 className="text-lg font-semibold text-gray-800">{"react"}</h2>
-  
-  {/* Owner */}
-  <p className="text-sm text-gray-500 mb-2">by @{"facebook"}</p>
-  
+      <img
+        src={"https://picsum.photos/200"}
+        alt={""}
+        className="w-24 h-24  mb-4 border-2 border-gray-500"
+      />
+      <h2 className="text-lg font-semibold text-gray-800">{"anayın"}</h2>
+      <p className="text-sm text-gray-500 mb-2">@{"ahmad"}</p>
+
   {/* Description */}
   <p className="text-xs text-gray-600 mb-3 line-clamp-2 px-2">
     {"The library for web and native user interfaces"}

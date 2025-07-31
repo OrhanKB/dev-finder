@@ -1,16 +1,15 @@
-import LanguageListings from "./LanguageListings";
 import RepoListings from "./RepoListings";
 import DeveloperListings from "./DeveloperListings";
-import { useEffect, useState } from "react";
+
 
 function Listings({data}) {
 
-    const {popularRepos, topFollowed, trendingLangs} = data
+    const {popularRepos, topFollowed} = data
   
     return(
         <>
-        <section className="flex  font-mono justify-center">
-            <LanguageListings items={trendingLangs} />
+        <section className="flex  font-mono justify-evenly">
+            
             <RepoListings items={popularRepos} />
             <DeveloperListings items={topFollowed}/>
         </section>

@@ -1,14 +1,17 @@
 import Listing from "./Listing";
-import { Symbols } from "../assets/symbols";
+import { useListingData } from "../hooks/useListingData";
 
 function RepoListings({items}) {
-
-    console.log("items:", items)
-
+    const {config, getDisplayValue, processedItems} = useListingData(items, "repository")
+    
     return(
         <>
-            <Listing title="Popular Repos" items={items}
-                symbol={Symbols.fire}
+            <Listing 
+            title={config.title}
+            items={processedItems}
+            symbol={config.symbol}
+            spanSymbol={config.spanSymbol}
+            getDisplayValue={getDisplayValue} 
              />
         </>
     );
