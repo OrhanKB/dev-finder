@@ -17,9 +17,16 @@ export async function  trendsLoader () {
         }
     });
 
+    const {data: topFollowersData} = await client.query({
+        query: GET_TOP_FOLLOWED,
+        variables: {limit: 8}
+    })
+
+
         
 
     return {
+        topFollowers: topFollowersData.search.nodes,
         popularRepos: popularReposData.search.nodes
     }
 }

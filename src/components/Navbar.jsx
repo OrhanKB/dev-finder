@@ -1,8 +1,21 @@
 import { Link } from "react-router-dom"
 import { FaSearch } from "react-icons/fa";
 import Button from "./Button";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
+
+
+
+    const location = useLocation();
+    
+
+    const filteringStyle = (path) => { 
+        return location.pathname === path   
+    }
+    
+    
+    
     return(
         <>
         <section className="bg-gradient-to-b from-gray-800 to-gray-600 py-2 flex justify-center 
@@ -21,9 +34,9 @@ function Navbar() {
                 </form>
             </div>
 
-            <Button nav="/" title="Home"/>
-            <Button nav="/trends" title="Trends"/>
-            <Button nav="/saved" title="Saved"/>
+            <Button isActive={filteringStyle("/")} nav="/" title="Home"/>
+            <Button isActive={filteringStyle("/trends")} nav="/trends" title="Trends"/>
+            <Button isActive={filteringStyle("/saved")} nav="/saved" title="Saved"/>
 
         </section>
 

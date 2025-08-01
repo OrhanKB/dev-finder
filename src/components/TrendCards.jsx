@@ -1,4 +1,3 @@
-
 import { useSearchParams } from "react-router";
 import DeveloperCard from "../components/DeveloperCard";
 import RepositoryCard from "../components/RepositoryCard";
@@ -9,13 +8,13 @@ function TrendCards({data}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const activeFilter = searchParams.get("filter");
 
-    const {popularRepos} = data
+    const {popularRepos, topFollowers} = data
     
     const renderCards = () => {
       return(
-        <>
+      <>
       {activeFilter === "repositories" && <RepositoryCard  items={popularRepos} />}
-      {activeFilter === "developers" && <DeveloperCard />}
+      {activeFilter === "developers" && <DeveloperCard items={topFollowers} />}
       </>
       );
     }

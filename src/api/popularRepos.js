@@ -12,7 +12,8 @@ export const GET_POPULAR_REPOS = gql`
           updatedAt            
           url
           owner {
-            login              
+            login
+            avatarUrl              
           }
           primaryLanguage {
             name              
