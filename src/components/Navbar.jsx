@@ -4,17 +4,12 @@ import Button from "./Button";
 import { useLocation } from "react-router-dom";
 
 function Navbar() {
-
-
-
-    const location = useLocation();
     
+    const location = useLocation();
 
     const filteringStyle = (path) => { 
         return location.pathname === path   
     }
-    
-    
     
     return(
         <>

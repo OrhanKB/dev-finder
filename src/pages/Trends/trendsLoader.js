@@ -19,15 +19,18 @@ export async function  trendsLoader () {
 
     const {data: topFollowersData} = await client.query({
         query: GET_TOP_FOLLOWED,
-        variables: {limit: 8}
+        variables: {
+            first: 8,
+            after: null,
+        }
     })
 
 
         
 
     return {
-        topFollowers: topFollowersData.search.nodes,
-        popularRepos: popularReposData.search.nodes
+        topFollowers: topFollowersData.search,
+        popularRepos: popularReposData.search
     }
 }
 

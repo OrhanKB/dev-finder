@@ -1,7 +1,16 @@
 import abbreviate from "number-abbreviate"
+import {formatDistanceToNow} from "date-fns"
 
 function RepositoryCard({items}) {
-    console.log("items:", items);
+
+  const calculateDate = (lastDate) => {
+      const date = new Date(lastDate);
+
+      const result = formatDistanceToNow(
+        date
+      );
+      return result
+  }
 
     return(
         <>
@@ -45,7 +54,7 @@ function RepositoryCard({items}) {
               <span>⭐ {abbreviate(item.stargazerCount, 0)}</span>
               <span>🍴 {abbreviate(item.forkCount, 0)}</span>
             </div>
-            <p className="text-xs text-gray-500 text-center">{"Updated 2 days ago"}</p>
+            <p className="text-xs text-gray-500 text-center">{`Updated ${calculateDate(item.updatedAt)} ago`}</p>
           </div>
         </div>
   

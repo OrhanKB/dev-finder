@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const GET_TOP_FOLLOWED = gql `
-    query TopFollowedUsers($limit: Int!) {
-  search(query: "followers:>50000", type: USER, first: $limit) {
+    query TopFollowedUsers( $first: Int, $after: String) {
+  search(query: "followers:>10000", type: USER first: $first, after: $after) {
     nodes {
       ... on User {
         login
@@ -53,6 +53,10 @@ export const GET_TOP_FOLLOWED = gql `
         }
       }
     }
+       pageInfo {
+        endCursor
+        hasNextPage
+      }
   }
 }
 `

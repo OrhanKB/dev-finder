@@ -4,11 +4,10 @@ import { useLoaderData } from "react-router-dom";
 
 function Trends() {
     const data = useLoaderData();
-    
     return(
         <>
         <FilterButtons />
-        <TrendCards data={data} />
+        <TrendCards items={data} />
         </>
     );
 }
