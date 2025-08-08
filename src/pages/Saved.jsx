@@ -1,7 +1,9 @@
+import DeveloperDetailCard from "../components/DeveloperDetailCard";
+
 function Saved() {
     return(
         <>
-        <div>Saved</div>
+        <DeveloperDetailCard />
         </>
     );
 }

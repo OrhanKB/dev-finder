@@ -1,7 +1,11 @@
 import abbreviate from "number-abbreviate"
 import {formatDistanceToNow} from "date-fns"
+import { Symbols } from "../assets/symbols.js";
+import { useSearchId } from "../hooks/useSearchId.js";
 
 function RepositoryCard({items}) {
+
+  const {handleClick} = useSearchId()
 
   const calculateDate = (lastDate) => {
       const date = new Date(lastDate);
@@ -19,7 +23,9 @@ function RepositoryCard({items}) {
             
   return <div className="ml-5 cursor-pointer bg-white border-4
             hover:translate-x-1 shadow-md hover:shadow-xl font-mono
-            transition-all p-5 w-full max-w-xs flex flex-col items-center text-center">
+            transition-all p-5 w-full max-w-xs flex flex-col items-center text-center"
+            key={item.id} onClick={() => {handleClick(item.id)}}
+            >
   
               <img
                 src={item.owner.avatarUrl}
@@ -51,8 +57,8 @@ function RepositoryCard({items}) {
           
           <div className="bg-gray-200 px-4 py-2 text-sm w-full">
           <div className="flex justify-center gap-4 mb-1 text-xs text-gray-500">
-              <span>⭐ {abbreviate(item.stargazerCount, 0)}</span>
-              <span>🍴 {abbreviate(item.forkCount, 0)}</span>
+              <span>{Symbols.star} {abbreviate(item.stargazerCount, 0)}</span>
+              <span>{Symbols.fork} {abbreviate(item.forkCount, 0)}</span>
             </div>
             <p className="text-xs text-gray-500 text-center">{`Updated ${calculateDate(item.updatedAt)} ago`}</p>
           </div>

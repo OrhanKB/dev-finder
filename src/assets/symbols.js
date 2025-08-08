@@ -5,5 +5,10 @@ export const Symbols  = {
   star: "⭐",
   crown: "👑",
   followers: "👥",
-  follower: "👤"
+  follower: "👤",
+  fork: "🍴",
+  location: "📍",
+  company: "🏢",
+  calendar: "📅",
+  link: "🔗",
 };

@@ -14,26 +14,37 @@ function TrendCards({items}) {
     const [searchParams, setSearchParams] = useSearchParams();
     const activeFilter = searchParams.get("filter");
 
-    const {popularRepos, topFollowers} = items
+    const {popularRepos, topFollowers} = items;
 
-    const followersItems = topFollowers.nodes
-    const followerCursor = topFollowers.pageInfo.endCursor
+    const followersItems = topFollowers.nodes;
+    const followerCursor = topFollowers.pageInfo.endCursor;
 
-    const reposItems = popularRepos.nodes
+    const reposItems = popularRepos.nodes;
     const reposCursor = popularRepos.pageInfo.endCursor;
 
     //  APOLLO CLIENT
     //repos data
-    const {data: repoData, loadMore: repoLoadMore, loading: repoLoading} =
+    const {
+        data: repoData,
+        loadMore: repoLoadMore,
+        loading: repoLoading,
+        hasMore: repoHasMore
+    } =
      useLoadMore(GET_POPULAR_REPOS, reposCursor, reposItems,);
 
     //followers data
-    const {data: topFollowedData, loadMore: followerLoadMore, loading: followedLoading} =
+    const {
+        data: topFollowedData,
+        loadMore: followerLoadMore,
+        loading: followedLoading,
+        hasMore: followersHasMore,
+    } =
      useLoadMore(GET_TOP_FOLLOWED, followerCursor, followersItems);
     //  APOLLO CLIENT  
 
     const handleOnClick = activeFilter === "repositories" ? repoLoadMore : followerLoadMore;
     const currentLoading = activeFilter === "repositories" ? repoLoading : followedLoading;
+    const currentHasMore = activeFilter === "repositories" ? repoHasMore : followersHasMore
 
     
     const renderCards = () => {
@@ -52,6 +63,7 @@ function TrendCards({items}) {
         </section>
         
         <div className="flex justify-center align-center pb-10 font-mono">
+         {currentHasMore &&
          <Button onClick={handleOnClick}
           title= {
             currentLoading ? (
@@ -63,6 +75,7 @@ function TrendCards({items}) {
            width="w-80"
            disabled={currentLoading}
             />
+            }
          </div>
         </>
     );

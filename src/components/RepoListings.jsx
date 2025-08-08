@@ -2,8 +2,9 @@ import Listing from "./Listing";
 import { useListingData } from "../hooks/useListingData";
 
 function RepoListings({items}) {
-    const {config, getDisplayValue, processedItems} = useListingData(items, "repository")
     
+    const {config, getDisplayValue, processedItems} = useListingData(items, "repository")
+
     return(
         <>
             <Listing 
@@ -12,6 +13,7 @@ function RepoListings({items}) {
             symbol={config.symbol}
             spanSymbol={config.spanSymbol}
             getDisplayValue={getDisplayValue} 
+            
              />
         </>
     );

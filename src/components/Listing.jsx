@@ -1,5 +1,6 @@
 
 function Listing({title, items, symbol, spanSymbol ,getDisplayValue}) {
+    
 
     return(
         <>
@@ -10,7 +11,7 @@ function Listing({title, items, symbol, spanSymbol ,getDisplayValue}) {
                     {
                     items.map((item) =>             
                         <div className="px-2 relative cursor-pointer border-2 transition
-                         duration-250 ease hover:scale-120 hover:bg-gray-800 hover:text-white">
+                         duration-250 ease hover:scale-120 hover:bg-gray-800 hover:text-white" key={item.id} >
                              {item.name}
                              <span className="absolute right-4 text-base top-0.5"> 
                                {getDisplayValue(item)}

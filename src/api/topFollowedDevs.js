@@ -7,6 +7,7 @@ export const GET_TOP_FOLLOWED = gql `
       ... on User {
         login
         name
+        id
         followers {
           totalCount
         }
@@ -39,7 +40,7 @@ export const GET_TOP_FOLLOWED = gql `
         name
         avatarUrl
         url
-        
+        id
         repositories(first: 1, orderBy: {field: STARGAZERS, direction: DESC}) {
           nodes {
             name

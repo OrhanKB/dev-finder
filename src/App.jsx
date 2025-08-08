@@ -6,6 +6,9 @@ import { trendsLoader } from './pages/Trends/trendsLoader.js';
 import Saved from "./pages/Saved"
 import Trends from './pages/Trends/Trends.jsx';
 
+console.log('GITHUB TOKEN:', import.meta.env.VITE_GITHUB_TOKEN);
+
+
   const router = createBrowserRouter(
   createRoutesFromElements(
     <>

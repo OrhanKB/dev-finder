@@ -7,10 +7,14 @@ export const useLoadMore = (queryApi, endCursor, initialItems) => {
     const [data, setData] = useState(initialItems);
     const [cursor, setCursor] = useState(endCursor);
     const [loading, setLoading] = useState(false);
+    const [hasMore, setHasMore] = useState(true);
+
 
     const client = useApolloClient();
 
     const loadMore = async () => {
+
+        if(loading || !hasMore) return;
 
         setLoading(true);
         
@@ -26,8 +30,10 @@ export const useLoadMore = (queryApi, endCursor, initialItems) => {
         const searchResult = newData;
         const newNodes = searchResult.search.nodes;
         const pageInfo  = searchResult.search.pageInfo;
+        const hasNextPage = pageInfo.hasNextPage;
 
        // setCursor(new data)
+        setHasMore(hasNextPage);
         setCursor(pageInfo.endCursor);
         setData(prev => {
           return [...prev, ...newNodes]
@@ -46,6 +52,7 @@ return {
     data,
     loadMore,
     loading,
+    hasMore,
 }
 
 }

@@ -11,6 +11,7 @@ export const GET_POPULAR_REPOS = gql`
           description          
           updatedAt            
           url
+          id
           owner {
             login
             avatarUrl              

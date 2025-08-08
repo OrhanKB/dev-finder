@@ -1,13 +1,15 @@
 import abbreviate from "number-abbreviate"
+import { Symbols } from "../assets/symbols.js"
 
 function DeveloperCard({items}) {
   
-
     return(
         <>
           {items.map(item => {
-         return  <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 font-mono
-             shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center">
+    return <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 font-mono
+             shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center"
+              key={item.id} id={item.id}
+             >
               <img
                 src={item.avatarUrl}
                 alt={"avatar"}
@@ -34,8 +36,8 @@ function DeveloperCard({items}) {
                 <p className="font-semibold text-gray-700">Top Repo:</p>
                 <p className="text-gray-600 truncate">{item.repositories.nodes[0].name}</p>
                 <div className="flex justify-center gap-4 mt-1 text-xs text-gray-500">
-                  <span>⭐ {abbreviate(item.repositories.nodes[0].stargazerCount, 0)}</span>
-                  <span>🍴 {abbreviate(item.repositories.nodes[0].forkCount, 0)}</span>
+                  <span>{Symbols.star} {abbreviate(item.repositories.nodes[0].stargazerCount, 0)}</span>
+                  <span>{Symbols.fork} {abbreviate(item.repositories.nodes[0].forkCount, 0)}</span>
                 </div>
               </div>
             </div>
