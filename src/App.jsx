@@ -5,8 +5,8 @@ import { homepageLoader } from './pages/Home/homeLoader.js';
 import { trendsLoader } from './pages/Trends/trendsLoader.js';
 import Saved from "./pages/Saved"
 import Trends from './pages/Trends/Trends.jsx';
-
-console.log('GITHUB TOKEN:', import.meta.env.VITE_GITHUB_TOKEN);
+import DetailPage from './pages/DetailsPage/DetailPage.jsx';
+import { SearchIdProvider } from './contexts/context.jsx';
 
 
   const router = createBrowserRouter(
@@ -16,17 +16,20 @@ console.log('GITHUB TOKEN:', import.meta.env.VITE_GITHUB_TOKEN);
     <Route index element={<Home />} loader={homepageLoader}/>,
     <Route path="/trends" element={<Trends />} loader={trendsLoader} />,
     <Route path="/saved" element={<Saved />} />
+    <Route path='/developer/:username' element={<DetailPage />}/>
+    <Route path='/repository/:name' element={<DetailPage />} />
     </Route>
     </>
   )
 );
 
-
 function App() {
 
   return(
       <>
+      <SearchIdProvider>
       <RouterProvider router={router}/>
+      </SearchIdProvider>
       </>
   );
   }

@@ -1,14 +1,21 @@
 import abbreviate from "number-abbreviate"
 import { Symbols } from "../assets/symbols.js"
+import { useSearchId } from "../hooks/useSearchId.js";
 
 function DeveloperCard({items}) {
-  
+
+    const {handleClick} = useSearchId();
+
+    // const [pathname, setPathname] = useState("");
+
     return(
         <>
           {items.map(item => {
-    return <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 font-mono
-             shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center"
-              key={item.id} id={item.id}
+
+  
+      return <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 font-mono
+               shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center" key={item.id}
+                onClick={() => handleClick(item.login, item.id)}
              >
               <img
                 src={item.avatarUrl}
@@ -41,7 +48,7 @@ function DeveloperCard({items}) {
                 </div>
               </div>
             </div>
-
+         
           })}
         
         </>

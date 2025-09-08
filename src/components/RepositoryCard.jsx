@@ -5,7 +5,7 @@ import { useSearchId } from "../hooks/useSearchId.js";
 
 function RepositoryCard({items}) {
 
-  const {handleClick} = useSearchId()
+  const {handleClick} = useSearchId();
 
   const calculateDate = (lastDate) => {
       const date = new Date(lastDate);
@@ -24,7 +24,7 @@ function RepositoryCard({items}) {
   return <div className="ml-5 cursor-pointer bg-white border-4
             hover:translate-x-1 shadow-md hover:shadow-xl font-mono
             transition-all p-5 w-full max-w-xs flex flex-col items-center text-center"
-            key={item.id} onClick={() => {handleClick(item.id)}}
+            key={item.id} onClick={() => handleClick(item.name, item.id)}
             >
   
               <img

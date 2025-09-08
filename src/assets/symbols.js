@@ -11,4 +11,5 @@ export const Symbols  = {
   company: "🏢",
   calendar: "📅",
   link: "🔗",
+  bio: "📝",
 };
