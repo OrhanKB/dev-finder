@@ -34,6 +34,7 @@ query searchId($id: ID!) {
       pinnableItems(first: 6, types: REPOSITORY) {
         nodes {
           ... on Repository {
+            url
             name
             description
             stargazerCount
@@ -46,6 +47,46 @@ query searchId($id: ID!) {
         }
       }
     }
+
+  ... on Organization {
+    name
+    url
+    avatarUrl
+    login
+    description
+    location
+    websiteUrl
+    createdAt
+
+  repositories(first: 20, isFork: false, privacy: PUBLIC) {
+    nodes {
+      languages(first: 10) {
+        edges {
+          size
+          node {
+            name
+          }
+        }
+      }
+    }
+  }
+  pinnableItems(first: 6, types: REPOSITORY) {
+    nodes {
+      ... on Repository {
+        url
+        name
+        description
+        stargazerCount
+        forkCount
+        primaryLanguage {
+          name
+          color
+        }
+      }
+    }
+  }
+}
+    
 
     ... on Repository {
       name

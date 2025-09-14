@@ -6,12 +6,9 @@ function DeveloperCard({items}) {
 
     const {handleClick} = useSearchId();
 
-    // const [pathname, setPathname] = useState("");
-
     return(
         <>
           {items.map(item => {
-
   
       return <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 font-mono
                shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center" key={item.id}
@@ -29,6 +26,7 @@ function DeveloperCard({items}) {
                 href={item.url}
                 target="_blank"
                 className="text-blue-500 text-sm underline mb-3"
+                onClick={(e) => e.stopPropagation() }
               >
                 View GitHub Profile
               </a>

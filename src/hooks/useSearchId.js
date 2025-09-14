@@ -1,6 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import {GET_SEARCH_ID} from "../api/searchId.js"
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 import { useSearchIdContext } from "../contexts/context.jsx";
 
@@ -34,7 +34,6 @@ export const useSearchId = () => {
     };
 
     
-
    
     return {
         handleClick,

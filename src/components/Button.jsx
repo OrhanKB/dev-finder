@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function Button({title, nav, text="", width="w-20", onClick, isActive, height, disabled, mb, mt}) {
+function Button({title, nav, text="", target , width="w-20", onClick, isActive, height, disabled, mb, mt}) {
 
     const baseClasses = 
     `inline-flex justify-center text-white ${text} ${width} ${height} mb-${mb} mt-${mt}
@@ -19,7 +19,7 @@ function Button({title, nav, text="", width="w-20", onClick, isActive, height, d
 
     return(
         <>
-        <Link className={`${baseClasses}`} to={nav === "Home" ? "/" : nav}>
+        <Link className={`${baseClasses}`} to={nav === "Home" ? "/" : nav} target={target}>
             {title}
         </Link>
         </>
