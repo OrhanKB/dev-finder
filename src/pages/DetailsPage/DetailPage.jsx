@@ -15,7 +15,7 @@ function DetailPage() {
   return (
     <>
     {pathName === "developer" && <DeveloperDetailCard item={id}/>} 
-    {pathName === "repository" && <RepositoryCardDetail />}
+    {pathName === "repository" && <RepositoryCardDetail  item={id}/>}
     </>
   )
 }

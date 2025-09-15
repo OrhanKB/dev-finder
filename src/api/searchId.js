@@ -117,14 +117,6 @@ query searchId($id: ID!) {
           }
         }
       }
-      collaborators(first: 4) {
-        edges {
-          node {
-            login
-            avatarUrl
-          }
-        }
-      }
       repositoryTopics(first: 4) {
         edges {
           node {

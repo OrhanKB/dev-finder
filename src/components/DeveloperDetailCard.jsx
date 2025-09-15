@@ -90,7 +90,7 @@ function DeveloperDetailCard({item}) {
              }
         }); 
 
-        const dateFormatted = format(new Date(createDate), "MMMM, yyyy");
+        const dateFormatted = format(new Date(createDate), "MMMM, dddd ,yyyy, ");
 
     return(
         <section className="grid bg-white relative border-4 w-320 h-auto justify-self-center mt-10 font-mono">

@@ -1,4 +1,15 @@
-function RepositoryCardDetail() {
+import NumberAbbreviate from "number-abbreviate";
+import { Symbols } from "../assets/symbols";
+import { format, formatDistanceToNow } from "date-fns";
+import GithubColors from "github-colors"
+
+function RepositoryCardDetail({item}) {
+  const indexOfLetter = item.node.createdAt.split("").indexOf("T");
+  const createDate =  item.node.createdAt.split("").splice(0, indexOfLetter).join("");
+  const updateDate = item.node.updatedAt;
+
+  const totalSize = item.node.languages.totalSize;
+
   return (
     <div className=" mt-5 bg-white justify-self-center border-4 shadow-xl font-mono p-6 w-320 h-auto flex flex-col">
       
@@ -6,13 +17,13 @@ function RepositoryCardDetail() {
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center gap-3">
           <img
-            src="https://avatars.githubusercontent.com/u/12345678?v=4"
+            src={item.node.owner.avatarUrl}
             alt="owner-avatar"
             className="w-30 h-30 border-4"
           />
           <div>
-            <h2 className="text-3xl font-bold text-gray-800">awesome-project</h2>
-            <p className="text-2xl text-gray-500">@johnsmith</p>
+            <h2 className="text-3xl font-bold text-gray-800">{item.node.name}</h2>
+            <p className="text-2xl text-gray-500">@{item.node.owner.login}</p>
           </div>
         </div>
         <button className="text-gray-400 hover:text-gray-600 text-xl">
@@ -27,35 +38,35 @@ function RepositoryCardDetail() {
         <div className="flex-1">
           {/* Description */}
           <p className="text-base text-gray-600 mb-4 leading-relaxed">
-            A modern web application built with React and Node.js for managing tasks efficiently
+            {item.node.description}
           </p>
 
           {/* Main Stats Grid */}
           <div className="grid grid-cols-4 gap-3 mb-4">
             <div className="bg-yellow-50 p-3 rounded text-center">
               <div className="text-xl font-bold text-yellow-700">
-                ⭐ 2.3K
+                {Symbols.star} {NumberAbbreviate(item.node.stargazerCount, 0)}
               </div>
               <div className="text-sm text-gray-500">Stars</div>
             </div>
             
             <div className="bg-blue-50 p-3 rounded text-center">
               <div className="text-xl font-bold text-blue-700">
-                🍴 445
+                {Symbols.fork} {NumberAbbreviate(item.node.forkCount, 0)}
               </div>
               <div className="text-sm text-gray-500">Forks</div>
             </div>
             
             <div className="bg-green-50 p-3 rounded text-center">
               <div className="text-xl font-bold text-green-700">
-                23
+                {item.node.issues.totalCount}
               </div>
               <div className="text-sm text-gray-500">Issues</div>
             </div>
             
             <div className="bg-purple-50 p-3 rounded text-center">
               <div className="text-xl font-bold text-purple-700">
-                156
+                  {item.node.watchers.totalCount}                
               </div>
               <div className="text-sm text-gray-500">Watchers</div>
             </div>
@@ -63,10 +74,10 @@ function RepositoryCardDetail() {
 
           {/* Additional Info */}
           <div className="bg-gray-50 p-3 rounded text-md font-bold text-gray-600 space-y-1">
-            <div>📅 Created: 2 years ago</div>
-            <div>🔄 Updated: 3 days ago</div>
-            <div>📄 License: MIT License</div>
-            <div>💾 Size: 45 MB</div>
+            <div>{Symbols.calendar} Created: {format(new Date (createDate), "dd MMMM, yyyy")}</div>
+            <div>{Symbols.update} Updated: {formatDistanceToNow(updateDate)}</div>
+            <div>{Symbols.license} License: {item.node.licenseInfo.name || "No license"}</div>
+            <div> {Symbols.size} Size: {(item.node.diskUsage / 1024).toFixed(1)} MB</div>
           </div>
         </div>
 
@@ -76,15 +87,23 @@ function RepositoryCardDetail() {
           <div className="mb-4">
             <h3 className="text-lg font-bold text-gray-700 mb-2">Languages</h3>
             <div className="flex flex-wrap gap-1">
-              <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
-                JavaScript (68%)
+
+              {
+              item.node.languages.edges.map(itemLang => {
+              
+              const percentage =  ((itemLang.size / totalSize) * 100).toFixed(1)
+              const langColors = GithubColors.get(itemLang.node.name).color;
+
+              console.log("itemlang:", itemLang)
+            if(percentage > 1) {
+              return(
+              <span key={item.node.name} style={{backgroundColor: langColors}} className="bg-gray-100 text-gray-200 px-2 py-1 rounded text-sm">
+                {itemLang.node.name} ({percentage}%)
               </span>
-              <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
-                CSS (22%)
-              </span>
-              <span className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
-                HTML (10%)
-              </span>
+              ); 
+              } 
+              }) 
+              }
             </div>
           </div>
 

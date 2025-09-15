@@ -9,10 +9,9 @@ function RepositoryCard({items}) {
 
   const calculateDate = (lastDate) => {
       const date = new Date(lastDate);
-
-      const result = formatDistanceToNow(
-        date
-      );
+        const result = formatDistanceToNow(
+          date
+        );
       return result
   }
 

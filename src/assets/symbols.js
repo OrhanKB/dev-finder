@@ -12,4 +12,7 @@ export const Symbols  = {
   calendar: "📅",
   link: "🔗",
   bio: "📝",
+  update: "🔄",
+  license: "📄",
+  size: "💾",
 };
