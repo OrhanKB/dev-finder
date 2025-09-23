@@ -40,7 +40,7 @@ function RepositoryCard({items}) {
               </p>
 
               
-              <div className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full mb-3">
+              <div className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1  mb-3">
               { !item.primaryLanguage ? "No Code" : item.primaryLanguage.name}
               </div>
   

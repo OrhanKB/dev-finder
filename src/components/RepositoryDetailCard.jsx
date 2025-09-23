@@ -5,12 +5,14 @@ import GithubColors from "github-colors"
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { PulseLoader } from "react-spinners";
+import Button from "./Button.jsx"
 
 function RepositoryCardDetail({item}) {
   const indexOfLetter = item.node.createdAt.split("").indexOf("T");
   const createDate =  item.node.createdAt.split("").splice(0, indexOfLetter).join("");
   const updateDate = item.node.updatedAt;
   const totalSize = item.node.languages.totalSize;
+  const repositoryTopics = item.node.repositoryTopics.edges;
 
     const [contributors, setContributors] = useState([]);
     const [otherContributorsCount, setOtherContributorsCount] = useState();
@@ -136,7 +138,7 @@ function RepositoryCardDetail({item}) {
           </div>
 
           {/* Additional Info */}
-          <div className="bg-gray-50 p-3 rounded text-md font-bold text-gray-600 space-y-1">
+          <div className="bg-gray-200 p-3 text-md font-bold text-gray-600 space-y-1">
             <div>{Symbols.calendar} Created: {format(new Date (createDate), "dd MMMM, yyyy")}</div>
             <div>{Symbols.update} Updated: {formatDistanceToNow(updateDate)}</div>
             <div>{Symbols.license} License: {item.node.licenseInfo && item.node.licenseInfo.name || "No license"}</div>
@@ -194,11 +196,12 @@ function RepositoryCardDetail({item}) {
               </Link>     
                 );
               })}
+              {otherContributorsCount ? (
               <span className="self-center">
                 <Link className="hover:text-blue-600" to={contributorsUrl} target="_blank"> 
                 {otherContributorsCount}+ More Contributors
                 </Link>
-                </span>
+                </span>) : (<span>*No data</span>)}
             </div>
             )}
           </div>
@@ -207,37 +210,22 @@ function RepositoryCardDetail({item}) {
           <div className="mb-4">
             <h3 className="text-lg font-bold text-gray-700 mb-2">Topics</h3>
             <div className="flex flex-wrap gap-1">
-              <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">
-                react
+              { repositoryTopics.length !== 0 ?
+              repositoryTopics.map(item => {
+                return(
+              <span className="bg-blue-100 text-blue-700 px-2 py-1 border-2 border-black border-black  text-sm">
+                  {item.node.topic.name}
               </span>
-              <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">
-                javascript
-              </span>
-              <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">
-                nodejs
-              </span>
-              <span className="bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">
-                web-app
-              </span>
+                )
+              }) : (<span>*No data</span>) }
             </div>
           </div>
         </div>
       </div>
 
       {/* Action Buttons - Full Width at Bottom */}
-      <div className="flex gap-2 mt-4">
-        <a
-          href="#"
-          className="flex-1 bg-black text-white text-center py-2 rounded text-sm hover:bg-gray-800 transition-colors"
-        >
-          View Repository
-        </a>
-        <a
-          href="#"
-          className="flex-1 bg-blue-500 text-white text-center py-2 rounded text-sm hover:bg-blue-600 transition-colors"
-        >
-          Live Demo
-        </a>
+      <div className="flex gap-2 mt-6 justify-center">
+        <Button title={"View Repository"} width={"w-100"} nav={item.node.url} target={"_blank"}></Button>
       </div>
     </div>
     
