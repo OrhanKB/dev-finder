@@ -2,17 +2,80 @@ import NumberAbbreviate from "number-abbreviate";
 import { Symbols } from "../assets/symbols";
 import { format, formatDistanceToNow } from "date-fns";
 import GithubColors from "github-colors"
+import { useEffect, useState } from "react";
+import { Link } from "react-router";
+import { PulseLoader } from "react-spinners";
 
 function RepositoryCardDetail({item}) {
   const indexOfLetter = item.node.createdAt.split("").indexOf("T");
   const createDate =  item.node.createdAt.split("").splice(0, indexOfLetter).join("");
   const updateDate = item.node.updatedAt;
-
   const totalSize = item.node.languages.totalSize;
+
+    const [contributors, setContributors] = useState([]);
+    const [otherContributorsCount, setOtherContributorsCount] = useState();
+    const [page, setPage] = useState(1);
+    const [isLoading, setIsLoading] = useState(true);
+    const nodeOwner = item.node.owner.login;
+    const repoName = item.node.name;
+    const contributorsUrl = `https://github.com/${nodeOwner}/${repoName}/graphs/contributors`;
+   useEffect(() => {
+
+    const getAllContributors = async () => {
+      try {
+        setIsLoading(true);
+        //first six data
+        const res1 = await fetch(`https:/api.github.com/repos/${nodeOwner}/${repoName}/contributors`, {
+           headers: {
+            "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+           }
+        });
+        const firstSixData = await res1.json();
+        const firstSix = firstSixData.slice(0, 6);
+        setContributors(firstSix);
+
+        //other contribution(all)
+        const res2 = await fetch(`https:/api.github.com/repos/${nodeOwner}/${repoName}/contributors?per_page=100&page=${page}`, {
+           headers: {
+            "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+           }
+        });
+        const allData = await res2.json();
+        const linkHeader = res2.headers.get("Link");
+
+        if(linkHeader) {
+            const lastLink = linkHeader.split(",").find(item => item.includes(`rel="last"`));
+            const urlLink = new URL(lastLink.split(">")[0].replace("<", ""));
+            const lastPage = Number(urlLink.searchParams.get("page"));
+
+            let allContributors = [...allData];
+            for(let num = 2; num <= lastPage; num++) {
+              const res = await fetch(`https://api.github.com/repos/${nodeOwner}/${repoName}/contributors?per_page=100&page=${num}`, {
+           headers: {
+            "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+           }
+        });
+              const pageData = await res.json();
+              allContributors.push(...pageData);
+            }
+
+          const otherCount = allContributors.length - firstSix.length;
+          setOtherContributorsCount(otherCount);
+        };
+
+      } catch(error) {
+        console.log("error:", error)
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    getAllContributors();
+  }, [repoName]);
+    
 
   return (
     <div className=" mt-5 bg-white justify-self-center border-4 shadow-xl font-mono p-6 w-320 h-auto flex flex-col">
-      
       {/* Header with Close Button */}
       <div className="flex justify-between items-start mb-4">
         <div className="flex items-center gap-3">
@@ -76,7 +139,7 @@ function RepositoryCardDetail({item}) {
           <div className="bg-gray-50 p-3 rounded text-md font-bold text-gray-600 space-y-1">
             <div>{Symbols.calendar} Created: {format(new Date (createDate), "dd MMMM, yyyy")}</div>
             <div>{Symbols.update} Updated: {formatDistanceToNow(updateDate)}</div>
-            <div>{Symbols.license} License: {item.node.licenseInfo.name || "No license"}</div>
+            <div>{Symbols.license} License: {item.node.licenseInfo && item.node.licenseInfo.name || "No license"}</div>
             <div> {Symbols.size} Size: {(item.node.diskUsage / 1024).toFixed(1)} MB</div>
           </div>
         </div>
@@ -87,22 +150,27 @@ function RepositoryCardDetail({item}) {
           <div className="mb-4">
             <h3 className="text-lg font-bold text-gray-700 mb-2">Languages</h3>
             <div className="flex flex-wrap gap-1">
-
               {
-              item.node.languages.edges.map(itemLang => {
+             item.node.languages.edges.length !== 0 && item.node.languages.edges.map(itemLang => {
               
               const percentage =  ((itemLang.size / totalSize) * 100).toFixed(1)
               const langColors = GithubColors.get(itemLang.node.name).color;
 
-              console.log("itemlang:", itemLang)
+
             if(percentage > 1) {
+             
               return(
-              <span key={item.node.name} style={{backgroundColor: langColors}} className="bg-gray-100 text-gray-200 px-2 py-1 rounded text-sm">
+              <span key={itemLang.node.name} style={{
+                backgroundColor: langColors,
+                color: langColors === "#f1e05a" ? "black" : [] 
+              }} 
+              className="bg-gray-100 text-gray-200 px-2 py-1 border-2 border-black text-sm">
                 {itemLang.node.name} ({percentage}%)
               </span>
               ); 
-              } 
-              }) 
+              }
+
+              }) || <div className="text-gray-600 text-sm">*No Languages</div>
               }
             </div>
           </div>
@@ -110,32 +178,29 @@ function RepositoryCardDetail({item}) {
           {/* Contributors */}
           <div className="mb-4">
             <h3 className="text-lg font-bold text-gray-700 mb-2">Top Contributors</h3>
-            <div className="flex gap-2">
-              <img
-                src="https://avatars.githubusercontent.com/u/11111111?v=4"
-                alt="contributor"
-                className="w-10 h-10 rounded-full border"
-                title="johnsmith"
-              />
-              <img
-                src="https://avatars.githubusercontent.com/u/22222222?v=4"
-                alt="contributor"
-                className="w-10 h-10 rounded-full border"
-                title="maryjane"
-              />
-              <img
-                src="https://avatars.githubusercontent.com/u/33333333?v=4"
-                alt="contributor"
-                className="w-10 h-10 rounded-full border"
-                title="alexdoe"
-              />
-              <img
-                src="https://avatars.githubusercontent.com/u/44444444?v=4"
-                alt="contributor"
-                className="w-10 h-10 rounded-full border"
-                title="sarahwilson"
-              />
+            {isLoading ? (
+              <PulseLoader color="black" size={7}/>
+            ) : (
+               <div className="flex gap-2">
+              {contributors.map(contributor => {
+                return(   
+              <Link to={contributor.html_url} target="_blank">  
+                <img key={contributor.id}
+                  src={contributor.avatar_url}
+                  alt="contributor"
+                  className="w-10 h-10  border-2 border-black"
+                  title={contributor.login}
+                />
+              </Link>     
+                );
+              })}
+              <span className="self-center">
+                <Link className="hover:text-blue-600" to={contributorsUrl} target="_blank"> 
+                {otherContributorsCount}+ More Contributors
+                </Link>
+                </span>
             </div>
+            )}
           </div>
 
           {/* Topics */}
@@ -175,6 +240,7 @@ function RepositoryCardDetail({item}) {
         </a>
       </div>
     </div>
+    
   );
 }
 
