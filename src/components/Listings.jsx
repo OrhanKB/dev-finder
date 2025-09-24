@@ -5,7 +5,7 @@ import DeveloperListings from "./DeveloperListings";
 function Listings({data}) {
 
     const {popularRepos, topFollowed} = data
-  
+
     return(
         <>
         <section className="flex  font-mono justify-evenly">

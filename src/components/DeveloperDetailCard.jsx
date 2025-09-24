@@ -8,9 +8,8 @@ import { Link } from "react-router-dom";
 
 function DeveloperDetailCard({item}) {
     const statusStyle = "flex flex-col items-center w-25 bg-gray-200 ml-5 p-4 h-20"
-    
+        
         const typenameOrg = item.node.__typename;
-
        const [follower, setFollower] = useState();
 
        if (typenameOrg === "Organization") {

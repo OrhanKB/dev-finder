@@ -9,10 +9,10 @@ function DeveloperCard({items}) {
     return(
         <>
           {items.map(item => {
-  
+            
       return <div className="ml-5 cursor-pointer bg-white border-4 hover:translate-x-1 font-mono
                shadow-md hover:shadow-xl transition-all p-5 w-full max-w-xs flex flex-col items-center text-center" key={item.id}
-                onClick={() => handleClick(item.login, item.id)}
+                onClick={() => handleClick(item.login, item.id, item.__typename)}
              >
               <img
                 src={item.avatarUrl}

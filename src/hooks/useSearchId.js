@@ -1,7 +1,7 @@
 import { useApolloClient } from "@apollo/client";
 import {GET_SEARCH_ID} from "../api/searchId.js"
-import { createContext, useEffect, useState } from "react";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import { createContext,} from "react";
+import {useNavigate,} from "react-router-dom";
 import { useSearchIdContext } from "../contexts/context.jsx";
 
 const valueContext = createContext();
@@ -10,15 +10,12 @@ export const useSearchId = () => {
     
     const client = useApolloClient();
     const navigate = useNavigate();
-
-    const [searchParams, setSearchParams] = useSearchParams();
-    const queryFilter = searchParams.get("filter");
-    const navigator = queryFilter === "developers" ? "/developer" : "/repository"
-
     const {id, setId} = useSearchIdContext(); 
 
-    const handleClick = async (username, keyId) => {
-
+    const handleClick = async (username, keyId, type) => {
+        console.log("type:", type);
+        const navigator = type === "Repository" ? "/repository" : "/developer"   
+        
         try {
             const {data: searchIdData} = await client.query({
                 query: GET_SEARCH_ID,

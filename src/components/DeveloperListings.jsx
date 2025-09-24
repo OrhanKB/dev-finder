@@ -3,7 +3,7 @@ import { useListingData } from "../hooks/useListingData";
 
 function DeveloperListings({items}) {
     const {config, getDisplayValue, processedItems} = useListingData(items, "developer")
-
+    
     return(
         <>
             <Listing 

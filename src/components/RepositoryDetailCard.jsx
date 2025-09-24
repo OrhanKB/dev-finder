@@ -8,10 +8,11 @@ import { PulseLoader } from "react-spinners";
 import Button from "./Button.jsx"
 
 function RepositoryCardDetail({item}) {
+  
   const indexOfLetter = item.node.createdAt.split("").indexOf("T");
   const createDate =  item.node.createdAt.split("").splice(0, indexOfLetter).join("");
   const updateDate = item.node.updatedAt;
-  const totalSize = item.node.languages.totalSize;
+  const totalSize = item.node.languages.totalSize 
   const repositoryTopics = item.node.repositoryTopics.edges;
 
     const [contributors, setContributors] = useState([]);
@@ -213,9 +214,9 @@ function RepositoryCardDetail({item}) {
               { repositoryTopics.length !== 0 ?
               repositoryTopics.map(item => {
                 return(
-              <span className="bg-blue-100 text-blue-700 px-2 py-1 border-2 border-black border-black  text-sm">
-                  {item.node.topic.name}
-              </span>
+                <span className="bg-blue-100 text-blue-700 px-2 py-1 border-2 border-black border-black  text-sm">
+                    {item.node.topic.name}
+                </span>
                 )
               }) : (<span>*No data</span>) }
             </div>
