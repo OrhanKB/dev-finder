@@ -92,9 +92,7 @@ function RepositoryCardDetail({item}) {
             <p className="text-2xl text-gray-500">@{item.node.owner.login}</p>
           </div>
         </div>
-        <button className="text-gray-400 hover:text-gray-600 text-xl">
-          ✕
-        </button>
+        
       </div>
 
       {/* Main Content - Horizontal Layout */}

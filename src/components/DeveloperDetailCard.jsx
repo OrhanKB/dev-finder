@@ -5,6 +5,7 @@ import GitHubColors from "github-colors";
 import { useEffect, useRef, useState } from "react";
 import {format} from "date-fns";
 import { Link } from "react-router-dom";
+import GoBackButton from "./GoBackButton.jsx";
 
 function DeveloperDetailCard({item}) {
     const statusStyle = "flex flex-col items-center w-25 bg-gray-200 ml-5 p-4 h-20"
@@ -92,9 +93,11 @@ function DeveloperDetailCard({item}) {
         const dateFormatted = format(new Date(createDate), "MMMM dd, yyyy ");
 
     return(
-        <section className="grid bg-white relative border-4 w-320 h-auto justify-self-center mt-10 font-mono">
+        <div className="flex justify-center ">    
+        
+        <section className="grid bg-white relative border-4 w-320 h-auto  mt-10 font-mono">  
         <div className="flex mt-5 mx-10 w-auto">
-
+            
             {/*PHOTOS AND MAIN USER TITLES */}
             <div className="flex">
                 <img className="border-4 w-30 h-30" src={item.node.avatarUrl} alt="" />
@@ -197,6 +200,7 @@ function DeveloperDetailCard({item}) {
         
 
         </section>
+        </div>
     );
 }
 
