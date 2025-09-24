@@ -31,7 +31,6 @@ function Navbar() {
 
             <Button isActive={filteringStyle("/")} nav="/" title="Home"/>
             <Button isActive={filteringStyle("/trends")} nav="/trends" title="Trends"/>
-            <Button isActive={filteringStyle("/saved")} nav="/saved" title="Saved"/>
 
         </section>
 
