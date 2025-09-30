@@ -13,7 +13,7 @@ export const useSearchId = () => {
     const {id, setId} = useSearchIdContext(); 
 
     const handleClick = async (username, keyId, type) => {
-        console.log("type:", type);
+
         const navigator = type === "Repository" ? "/repository" : "/developer"   
         
         try {

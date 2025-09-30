@@ -23,7 +23,7 @@ function RepositoryCard({items}) {
   return <div className="ml-5 cursor-pointer bg-white border-4
             hover:translate-x-1 shadow-md hover:shadow-xl font-mono
             transition-all p-5 w-full max-w-xs flex flex-col items-center text-center"
-            key={item.id} onClick={() => handleClick(item.name, item.id, item.__typename)}
+            key={item.id} onClick={() => handleClick(`${item.owner.login}/${item.name}`, item.id, item.__typename)}
             >
   
               <img

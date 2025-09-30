@@ -9,7 +9,7 @@ import GoBackButton from "./GoBackButton.jsx";
 
 function DeveloperDetailCard({item}) {
     const statusStyle = "flex flex-col items-center w-25 bg-gray-200 ml-5 p-4 h-20"
-        
+        console.log("item:", item);
         const typenameOrg = item.node.__typename;
        const [follower, setFollower] = useState();
 

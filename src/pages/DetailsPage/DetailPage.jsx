@@ -1,6 +1,6 @@
 import DeveloperDetailCard from "../../components/DeveloperDetailCard"
 import RepositoryCardDetail from "../../components/RepositoryDetailCard"
-import { useLocation } from "react-router"
+import { useLoaderData, useLocation } from "react-router"
 import { useSearchIdContext } from "../../contexts/context";
 import GoBackButton from "../../components/GoBackButton";
 
@@ -9,6 +9,7 @@ function DetailPage() {
   const pathName =  location.pathname.split("/")[1];
   
    const {id, setId} = useSearchIdContext();
+    const data = useLoaderData();
   
   
   return (
@@ -19,8 +20,8 @@ function DetailPage() {
     </div>
 
     <div className="flex justify-self-center">
-    {pathName === "developer" && <DeveloperDetailCard item={id}/>} 
-    {pathName === "repository" && <RepositoryCardDetail  item={id}/>}
+    {pathName === "developer" &&   <DeveloperDetailCard item={data || id}/>} 
+    {pathName === "repository" &&  <RepositoryCardDetail  item={data || id}/>}
     </div>
 
     <div></div>

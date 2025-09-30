@@ -15,7 +15,11 @@ function Listing({title, items, symbol, spanSymbol ,getDisplayValue}) {
                     items.map((item) =>             
                         <div className="px-2 relative cursor-pointer border-2 transition
                          duration-250 ease hover:scale-120 hover:bg-gray-800 hover:text-white" key={item.id}
-                          onClick={() => handleClick(item.name, item.id, item.__typename)} >
+                          onClick={() => handleClick(
+                            item.__typename === "Repository" ? `${item.owner.login}/${item.name}` : item.login || item.name, 
+                            item.id, 
+                            item.__typename
+                          )} >
                              {item.name}
                              <span className="absolute right-4 text-base top-0.5"> 
                                {getDisplayValue(item)}

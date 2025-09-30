@@ -49,17 +49,14 @@ const SearchBar = () => {
     setQuery('');
     setIsOpen(false);
     
-    const username = type === 'repository' ? item.name : item.login;
+    const username = type === 'repository' ? `${item.owner.login}/${item.name}` : item.login;
     handleClick(username, item.id, item.__typename);
   }; 
-
-  /* const handleFormSubmit = (e) => {
-    e.preventDefault();
-  }; */
+  
 
   return (
     <div ref={searchRef} className="relative py-2 px-4 mx-4">
-      <form /* onSubmit={handleFormSubmit} */>
+      <form>
         <FaSearch className="absolute left-8 top-1/2 transform -translate-y-1/2 cursor-pointer transition duration-250 ease hover:scale-150 text-gray-600"/>
         <input 
           className="btns w-md pl-6 bg-gray-400 mx-3 py-1 px-2 border-2 outline-none text-gray-800 placeholder-gray-600"
