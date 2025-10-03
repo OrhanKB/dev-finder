@@ -58,7 +58,7 @@ function TrendCards({items}) {
 
     return(
         <> 
-        <section className=" grid grid-cols-4 gap-y-7 gap-x-5 bg-gray-300 px-10 py-10 font-mono">
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-7 gap-x-5 bg-gray-300 px-4 md:px-10 py-10 font-mono">
             {renderCards()}
         </section>
         

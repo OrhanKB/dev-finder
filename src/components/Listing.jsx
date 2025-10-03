@@ -7,9 +7,9 @@ function Listing({title, items, symbol, spanSymbol ,getDisplayValue}) {
 
     return(
         <>
-            <div className="text-3xl px-10 py-5" >
+            <div className="text-2xl md:text-3xl px-4 md:px-10 py-5" >
                 <h3>{symbol} {title}</h3>
-                <hr className="w-90" />
+                <hr className="w-90 max-w-sm" />
                 <div className="flex flex-col text-xl gap-3 py-4">
                     {
                     items.map((item) =>             

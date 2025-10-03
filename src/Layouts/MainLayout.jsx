@@ -3,7 +3,7 @@ import  { Outlet }  from "react-router-dom";
 
 function MainLayout() {
     return(
-       <div className="bg-gray-300 min-h-screen" >
+       <div className="bg-gray-300 min-h-screen">
         <Navbar />
         <Outlet />
        </div>
