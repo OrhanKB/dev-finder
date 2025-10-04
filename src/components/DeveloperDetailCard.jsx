@@ -8,8 +8,7 @@ import { Link } from "react-router-dom";
 import GoBackButton from "./GoBackButton.jsx";
 
 function DeveloperDetailCard({item}) {
-    const statusStyle = "flex flex-col items-center w-25 bg-gray-200 ml-5 p-4 h-20"
-        console.log("item:", item);
+        
         const typenameOrg = item.node.__typename;
        const [follower, setFollower] = useState();
 
@@ -93,60 +92,53 @@ function DeveloperDetailCard({item}) {
         const dateFormatted = format(new Date(createDate), "MMMM dd, yyyy ");
 
     return(
-        <div className="flex justify-center ">    
+        <div className="flex justify-center">    
         
-        <section className="grid bg-white relative border-4 w-320 h-auto  mt-10 font-mono">  
-        <div className="flex mt-5 mx-10 w-auto">
+        <section className="grid bg-white relative border-4 w-full max-w-sm mx-auto lg:w-320 lg:max-w-full h-auto mt-10 font-mono">  
+        <div className="flex flex-col lg:flex-row mt-5 mx-4 lg:mx-10 w-auto">
             
-            {/*PHOTOS AND MAIN USER TITLES */}
-            <div className="flex">
+            
+            <div className="flex flex-col sm:flex-row lg:flex-row items-center lg:items-start">
                 <img className="border-4 w-30 h-30" src={item.node.avatarUrl} alt="" />
 
-                <div className=" ml-10">
-                    <h1 className="text-3xl font-bold ">{item.node.name}</h1>
+                <div className="ml-0 lg:ml-10 text-center lg:text-left">
+                    <h1 className="text-3xl font-bold">{item.node.name}</h1>
                     <h3 className="text-2xl text-gray-500 mt-4">@{item.node.login}</h3>
                  { typenameOrg !== "Organization" && <p className="mt-4 text-gray-700">{item.node.bio || `${Symbols.bio} *No bio yet.*`}</p> }
                 </div>
             </div>
-            {/*PHOTOS AND MAIN USER TITLES END */}
 
-            {/* FOLLOWER - REPOS STATUS */}
-            
-            <div className="flex ml-auto">
-                <div className={statusStyle}>
+            <div className="flex flex-wrap justify-center lg:ml-auto mt-4 lg:mt-0">
+                <div className="flex flex-col items-center w-25 bg-gray-200 ml-2 lg:ml-5 p-4 h-20">
                     <p className="text-2xl">{abbreviate(typenameOrg === "Organization" ? follower : item.node.followers.totalCount, 0)}</p>
                     <p className="text-gray-500">Followers</p>
                 </div>
                 
                 { typenameOrg !== "Organization" && 
-                <div className={statusStyle}>
+                <div className="flex flex-col items-center w-25 bg-gray-200 ml-2 lg:ml-5 p-4 h-20">
                     <p className="text-2xl">{item.node.following.totalCount}</p>
                     <p className="text-gray-500">Following</p> 
                 </div>
                 }
 
-                <div className={statusStyle}>
+                <div className="flex flex-col items-center w-25 bg-gray-200 ml-2 lg:ml-5 p-4 h-20">
                     <p className="text-2xl">{item.node.repositories.nodes.length >= 20 ? " >20" : item.node.repositories.nodes.length }</p>
                     <p className="text-gray-500">Repos</p>
                 </div>
             </div>
         </div>
-        {/* FOLLOWER - REPOS STATUS END */}
 
 
-            {/* LOCATION AND LINKS */}
-            <div className="flex relative font-semibold text-sm mt-10 ml-10 text-gray-500 gap-8">
+            <div className="flex flex-col lg:flex-row flex-wrap relative font-semibold text-sm mt-10 ml-4 lg:ml-10 text-gray-500 gap-4 lg:gap-8">
                 <p title={item.node.location} ref={div1Ref}>{Symbols.location}{item.node.location || "No location"}</p>
                 {typenameOrg !== "Organization" && <p>{Symbols.company}{item.node.company || " No company"}</p> }
                 <p>{Symbols.calendar} Joined {dateFormatted}</p>
-                <a  ref={div2Ref} href={item.node.websiteUrl} target="_blank" className="text-blue-600">
+                <a ref={div2Ref} href={item.node.websiteUrl} target="_blank" className="text-blue-600">
                 {Symbols.link} {item.node.websiteUrl || "No link"}
                 </a>
             </div>
-            {/* LOCATION AND LINKS END*/}
 
-            {/* TOP USED LANGUAGES */}
-            <span className="absolute right-10 top-26">
+            <span className="hidden lg:block absolute right-10 top-26">
                 <div className="w-85 h-35 bg-gray-200 mt-5 ml-23 p-4 gap-y-0">
                     <p className="text-xl font-bold mb-3">Top Languages</p>
                 <ul>
@@ -166,20 +158,38 @@ function DeveloperDetailCard({item}) {
                 </ul>
                 </div>
             </span>                
-            {/* TOP USED LANGUAGES */}
 
-            {/* REPOSITORIES */}
+            <div className="lg:hidden mt-6 mx-4">
+                <div className="bg-gray-200 p-3">
+                    <p className="text-lg font-bold mb-3">Top Languages</p>
+                    <ul className="space-y-2">
+                        {
+                        calculateTopLangs().map(lang => { 
+                            const langColors = GitHubColors.get(lang.name).color;
+                            
+                            return(         
+                          <li className="flex flex-row text-sm" key={lang.name}> 
+                            <div className="w-3 h-3 mt-1 mr-2 border-2" style={{backgroundColor: langColors}}></div>
+                            {lang.name} - {lang.percentage}%
+                          </li>
+                        )
+                        })
+                        }
+                    </ul>
+                </div>
+            </div>
+
             <div className="flex">
-                <div className="mt-10 ml-6">
-                    <p className="text-xl font-bold mb-5">Pinned Repositories</p>
-                    <div className="grid grid-cols-3 gap-3">
+                <div className="mt-10 ml-2 lg:ml-6 w-full">
+                    <p className="text-xl font-bold mb-5 text-center sm:text-left">Pinned Repositories</p>
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 justify-items-center sm:justify-items-start md:mx-4 lg:mx-0">
                     {reposList.map(item => {
                         
                         return(         
-                <Link  key={item.name} target="_blank" to={item.url}>
-                    <div className="border-3 px-4 py-1 h-25 w-100 bg-gray-200 hover:translate-x-1 hover:shadow-xl transition-all cursor-pointer ">
+                <Link key={item.name} target="_blank" to={item.url}>
+                    <div className="border-3 px-2 sm:px-4 py-1 h-25 w-80 sm:w-80 lg:w-100 bg-gray-200 hover:translate-x-1 hover:shadow-xl transition-all cursor-pointer">
                         <p className="text-lg font-semibold">{item.name === null ? "No name" : item.name}</p>
-                        <p title={item.description} className="text-gray-600 text-sm truncate">{item.description || "*No Description*"}</p>
+                        <p title={item.description} className="hidden sm:block lg:block text-gray-600 text-sm truncate">{item.description || "*No Description*"}</p>
                         <div className="flex text-sm text-gray-600 justify-between mx-2 mt-3">
                             <p>{Symbols.star} {abbreviate(item.stargazerCount,0)}</p>
                             <p>{Symbols.fork} { abbreviate(item.forkCount,0)}</p>
@@ -193,11 +203,9 @@ function DeveloperDetailCard({item}) {
                     </div>
                 </div>
             </div>
-            {/* REPOSITORIES END*/}
 
                     
-            <Button nav={item.node.url} target="_blank" mb={"5"} mt={"5"} title={"View Github"} width="w-80"/>        
-        
+            <Button nav={item.node.url} target="_blank" mb={"5"} mt={"5"} title={"View Github"} width="w-80"/>
 
         </section>
         </div>

@@ -2,7 +2,7 @@ import client from '../../api/client.js';
 import { gql } from '@apollo/client';
 import { GET_SEARCH_ID } from '../../api/searchId.js';
 
-// Username'den user ID'yi bulma query'si
+
 const GET_USER_ID = gql`
   query getUserId($login: String!) {
     user(login: $login) {
@@ -11,32 +11,56 @@ const GET_USER_ID = gql`
   }
 `;
 
+const GET_ORG_ID = gql`
+  query getOrgId($login: String!) {
+    organization(login: $login) {
+      id
+    }
+  }
+`;
+
 export const developerLoader = async ({ params }) => {
     const { username } = params;
     
-    // URL decode ve temizle
+    
     const cleanUsername = decodeURIComponent(username).trim();
 
     try {
-        // 1. Username'den ID'yi bul
-        const { data: userIdData } = await client.query({
-            query: GET_USER_ID,
-            variables: { login: cleanUsername },
-            fetchPolicy: "network-only",
-        });
 
-        if (!userIdData.user) {
-            throw new Error(`User ${cleanUsername} not found`);
+      try {
+            const { data: userIdData } = await client.query({
+                query: GET_USER_ID,
+                variables: { login: cleanUsername },
+                fetchPolicy: "network-only",
+            });
+
+            if (userIdData.user) {
+                const { data: detailData } = await client.query({
+                    query: GET_SEARCH_ID,
+                    variables: { id: userIdData.user.id },
+                    fetchPolicy: "network-only",
+                });
+                return detailData;
+            }
+        } catch (userError) {
+
+          const { data: orgIdData } = await client.query({
+                query: GET_ORG_ID,
+                variables: { login: cleanUsername },
+                fetchPolicy: "network-only",
+            });
+
+            if (orgIdData.organization) {
+                const { data: detailData } = await client.query({
+                    query: GET_SEARCH_ID,
+                    variables: { id: orgIdData.organization.id },
+                    fetchPolicy: "network-only",
+                });
+                return detailData;
+            }
         }
 
-        // 2. ID ile detaylı veriyi çek
-        const { data: detailData } = await client.query({
-            query: GET_SEARCH_ID,
-            variables: { id: userIdData.user.id },
-            fetchPolicy: "network-only",
-        });
-
-        return detailData;
+        throw new Error(`User or Organization ${cleanUsername} not found`);
     } catch (error) {
         console.error("Developer loader error:", error);
         throw new Response("Developer not found", { status: 404 });
