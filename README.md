@@ -21,14 +21,6 @@ DevFinder is a single-page application that allows users to discover trending de
   <img src="./screenshots/devfinderss.png" style="height: 280px; width: auto; margin: 5px;" alt="DevFinder Screenshot 1" />
   <img src="./screenshots/devfinderss2.jpeg" style="height: 350px; width: auto; margin: 5px;" alt="DevFinder Screenshot 2" />
 </p>
-
-<!-- Add more screenshots here:
-<p align="center">
-  <img src="./screenshots/developer-profile.png" width="45%" />
-  <img src="./screenshots/repository-details.png" width="45%" />
-</p>
--->
-
 ---
 
 ## ✨ Features

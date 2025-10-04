@@ -15,4 +15,11 @@ export const Symbols  = {
   update: "🔄",
   license: "📄",
   size: "💾",
+  starShine: "🌟",
+  world: "🌍",
+  shine: "✨",
+  warning: "⚠️",
+  google: "🔍",
+  user: "👨‍💻",
+  repo:"📦",
 };

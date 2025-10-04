@@ -19,13 +19,18 @@ const SearchResultItem = ({ item, type, onSelect }) => {
             className="w-12 h-12 border-2 border-gray-500"
           />
           <div className="ml-3 flex-1 min-w-0">
-            <div className="flex items-center">
+            <div className="flex items-center flex-wrap gap-2">
               <h4 className="text-sm font-bold text-gray-800">{item.login}</h4>
-              <span className={`ml-2 px-2 py-1 text-xs font-semibold rounded-full ${
+              <span className={`px-2 py-1 text-xs font-semibold border-2 ${
                 item.__typename === "Organization" ? "bg-gray-300 text-black" : "bg-blue-200 text-black"
               }`}>
                 {item.__typename}
               </span>
+              {item.isEasterEgg && (
+                <span className="px-2 py-1 text-xs font-bold bg-green-500 text-white border-2 border-black animate-pulse">
+                  {Symbols.shine} Available for Hire
+                </span>
+              )}
             </div>
             {item.name && (
               <p className="text-sm text-gray-600 truncate w-full">{item.name}</p>
