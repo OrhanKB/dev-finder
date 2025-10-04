@@ -28,7 +28,7 @@ function RepositoryCardDetail({item}) {
       try {
         setIsLoading(true);
         //first six data
-        const res1 = await fetch(`https:/api.github.com/repos/${nodeOwner}/${repoName}/contributors`, {
+        const res1 = await fetch(`https://api.github.com/repos/${nodeOwner}/${repoName}/contributors`, {
            headers: {
             "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
            }
@@ -78,7 +78,7 @@ function RepositoryCardDetail({item}) {
     
 
   return (
-    <div className="mt-5 bg-white justify-self-center border-4 shadow-xl font-mono p-4 sm:p-6 w-full max-w-sm sm:max-w-5xl mx-auto h-auto flex flex-col">
+    <div className="mt-5 bg-white justify-self-center border-4 shadow-xl font-mono p-4 sm:p-6 w-full max-w-sm sm:max-w-5xl lg:max-w-[1200px] mx-auto h-auto flex flex-col">
 
       <div className="flex flex-col sm:flex-row justify-between items-start mb-4 gap-4">
         <div className="flex items-center gap-2 sm:gap-3">
@@ -185,7 +185,7 @@ function RepositoryCardDetail({item}) {
                 <img
                   src={contributor.avatar_url}
                   alt="contributor"
-                  className="w-10 h-10 border-2 border-black"
+                  className="w-8 h-8 sm:w-10 sm:h-10 border-2 border-black"
                   title={contributor.login}
                 />
               </Link>     

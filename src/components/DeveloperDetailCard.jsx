@@ -15,7 +15,7 @@ function DeveloperDetailCard({item}) {
        if (typenameOrg === "Organization") {
         useEffect(() => {
     
-                async function deneme() {
+                async function apiCall() {
                 const api = `https://api.github.com/users/${item.node.login}`;
                 try {
                     const res = await fetch(api);
@@ -25,7 +25,7 @@ function DeveloperDetailCard({item}) {
                     console.log("erorr:", error)
                 }
             }
-            deneme();
+            apiCall();
         });  
        }
 
@@ -87,7 +87,7 @@ function DeveloperDetailCard({item}) {
                 div1Ref.current.style.textOverflow  = "ellipsis";
                 div1Ref.current.style.whiteSpace ="nowrap"
              }
-        }); 
+        }, []); 
 
         const dateFormatted = format(new Date(createDate), "MMMM dd, yyyy ");
 
@@ -182,12 +182,12 @@ function DeveloperDetailCard({item}) {
             <div className="flex">
                 <div className="mt-10 ml-2 lg:ml-6 w-full">
                     <p className="text-xl font-bold mb-5 text-center sm:text-left">Pinned Repositories</p>
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 justify-items-center sm:justify-items-start md:mx-4 lg:mx-0">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 justify-items-center sm:justify-items-start md:mx-4 lg:mr-6 lg:mx-2">
                     {reposList.map(item => {
                         
                         return(         
-                <Link key={item.name} target="_blank" to={item.url}>
-                    <div className="border-3 px-2 sm:px-4 py-1 h-25 w-80 sm:w-80 lg:w-100 bg-gray-200 hover:translate-x-1 hover:shadow-xl transition-all cursor-pointer">
+                <Link key={item.name} target="_blank" to={item.url} >
+                    <div className="border-3 sm:px-4 py-1 h-25 w-80 sm:w-80 lg:w-100 bg-gray-200 hover:translate-x-1 hover:shadow-xl transition-all cursor-pointer">
                         <p className="text-lg font-semibold">{item.name === null ? "No name" : item.name}</p>
                         <p title={item.description} className="hidden sm:block lg:block text-gray-600 text-sm truncate">{item.description || "*No Description*"}</p>
                         <div className="flex text-sm text-gray-600 justify-between mx-2 mt-3">

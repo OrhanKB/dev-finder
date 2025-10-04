@@ -8,7 +8,7 @@ import {
 
 export async function homepageLoader() {
     try {
-        const {data: dailyRepoData} = await client.query({query: GET_DAILY_REPO});
+        const {data: dailyRepoData} = await client.query({query: GET_DAILY_REPO()});
         const {data: totalRepoData} = await client.query({query: TOTAL_REPO_DATA});
         const {data: topFollowedData} = await client.query({
             query: GET_TOP_FOLLOWED,
