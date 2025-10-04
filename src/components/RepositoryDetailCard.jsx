@@ -38,7 +38,7 @@ function RepositoryCardDetail({item}) {
         setContributors(firstSix);
 
         //other contribution(all)
-        const res2 = await fetch(`https:/api.github.com/repos/${nodeOwner}/${repoName}/contributors?per_page=100&page=${page}`, {
+        const res2 = await fetch(`https://api.github.com/repos/${nodeOwner}/${repoName}/contributors?per_page=100&page=${page}`, {
            headers: {
             "Authorization": `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
            }
